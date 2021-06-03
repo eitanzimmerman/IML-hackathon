@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import json
-import pickle
+from joblib import load
 
 
 def start_pipe(df):
@@ -99,8 +99,7 @@ def run_preprocess(df):
 def predict(filename):
     x = pd.read_csv(filename, index_col=0)
     x = run_preprocess(x)
-    with open("boosting_model.pkl", "rb") as file:
-        model = pickle.load(file)
+    model = load("model.joblib")
     pred = model.predict(x)
     return pred
 
